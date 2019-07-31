@@ -18,8 +18,8 @@ app.get("/survey", function(req, res) {
 });
 
 // ROUTER
-//  require("./routes/apiRoutes")(app);
-//  require("./routes/htmlRoutes")(app);
+ require("./routing/apiRoutes")(app);
+ require("./routing/htmlRoutes")(app);
 
 // LISTENER
 app.listen(PORT, function() {

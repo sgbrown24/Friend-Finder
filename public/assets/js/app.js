@@ -13,12 +13,25 @@ $(".submit").on("click", function(event){
     var answers  = {
         name,
         image,
+        scores:[
         q1,
         q2,
         q3,
         q4,
         q5,
         q6,
+        ]
     }
     console.log(answers)
+
+     // Add user inputs to friends list
+			$.post('/api/friendsArray',answers)
+            .then(function(data) {
+                // Set the name and image values of friend match
+                $('#match-name').html(data.matchName);
+              $("#match-img").attr("src", data.matchImage);
+              // Pop open the modal dialog
+                $('#modal').modal('open');
+})
+
 })

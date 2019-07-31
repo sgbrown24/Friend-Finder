@@ -1,49 +1,67 @@
 // LOAD DATA
-var friendsData = require("../data/friends");
+var friendsArray = require("../data/friends");
 
 
 module.exports = function(app) {
-  // API GET Requests
-  // Below code handles when users visit a page.
-
-
   
-
   app.get("/api/frirndsArray", function(req, res) {
     res.json(frirndsArray);
   });
 
   // API POST Requests
-  // Below code handles when a user submits a form and thus submits data to the server.
-  // In each of the below cases, when a user submits form data (a JSON object)
-  // ...the JSON is pushed to the appropriate JavaScript array
-  // (ex. User fills out a reservation request... this data is then sent to the server...
-  // Then the server saves the data to the tableData array)
-  // ---------------------------------------------------------------------------
 
-  app.post("/api/tables", function(req, res) {
-    // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-    // It will do this by sending out the value "true" have a table
-    // req.body is available since we're using the body parsing middleware
-    if (tableData.length < 5) {
-      tableData.push(req.body);
-      res.json(true);
+  app.post("/api/friendsArray", function(req, res) {
+      var difference =  0;
+      var match = {
+          name: "",
+          photo: "",
+          friendsDifference: 1000
+      };
+    var userData = req.body;
+    var userName = userData.name;
+    var userScore = userData.scores;
+    var a = userScore.map(function(item) {
+        return parseInt(item, 10);
+    });
+    userData = {
+        name: req.body.name,
+        photo: req.body.photo,
+        scores: a
     }
-    else {
-      waitListData.push(req.body);
-      res.json(false);
+ console.log("name: " + userName);
+ console.log("user score" + userScore);
+
+
+ var sum = a.reduce((a, b) => a + b, 0);
+ console.log("sume od users score" + sum);
+ console.log("best match"  + match.difference)
+
+
+//  for loop
+for (var i = 0; i <  friendsArray.length; i++){
+    console.log(friendsArray[i].name);
+    difference  = 0;
+    console.log("diff" + difference);
+    console.log("match+diff" + match.difference);
+
+    var frScore = friendsArray[i].scores.reduce((a, b) => a  + b, 0);
+    console.log("friend score" + frScore);
+    difference += Math.abs(sum - frScore);
+    console.log("===============" + difference);
+
+    if (difference <= match.friendsDifference) {
+        match.name =  friendsArray[i].name;
+        match.photo =  friendsArray[i].photo;
+        match.friendsDifference  = difference;
     }
-  });
+    console.log(difference + "diff");
+    console.log(match);
+    friendsArray.push(userData);
+    console.log("new user added");
+    console.log(userData);
+}
+res.json(match);
 
-  // ---------------------------------------------------------------------------
-  // I added this below code so you could clear out the table while working with the functionality.
-  // Don"t worry about it!
-
-  app.post("/api/clear", function(req, res) {
-    // Empty out the arrays of data
-    tableData.length = 0;
-    waitListData.length = 0;
-
-    res.json({ ok: true });
-  });
+    });
+  
 };
