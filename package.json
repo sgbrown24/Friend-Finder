@@ -1,0 +1,24 @@
+{
+  "name": "friend-finder-v1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server copy.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sgbrown24/Friend-Finder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sgbrown24/Friend-Finder/issues"
+  },
+  "homepage": "https://github.com/sgbrown24/Friend-Finder#readme"
+}
